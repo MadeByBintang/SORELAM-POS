@@ -1,0 +1,85 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #3b2f2f;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  background: #4e3629;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+table {
+  width: 90%;
+  margin: auto;
+  background: #2a1f1f;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table td,
+th {
+  padding: 10px;
+  border: 1px solid #6b4f3f;
+}
+
+button,
+a {
+  background: #c49a6c;
+  padding: 8px 10px;
+  border-radius: 5px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+button:hover,
+a:hover {
+  background: #a67c52;
+}
+
+/* MENU GAMBAR */
+.menu-grid {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.menu-card {
+  background: #4e3629;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 150px;
+}
+
+.menu-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.menu-card:hover {
+  background: #6b4f3f;
+  transform: scale(1.05);
+}
+
+input,
+select {
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.menu-thumb {
+  height: 80px; /* tinggi seragam */
+  width: 80px; /* lebar seragam */
+  object-fit: cover; /* rapikan crop agar tidak melebar */
+  border-radius: 8px; /* sudut rapi */
+}
