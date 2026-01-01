@@ -53,6 +53,21 @@ if (isset($_GET['selesai'])) {
             }
         }
     </script>
+
+    <style>
+        /* Sembunyikan scrollbar untuk Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Sembunyikan scrollbar untuk IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-sans">
@@ -125,9 +140,11 @@ if (isset($_GET['selesai'])) {
         </div>
 
         <div class="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100">
-            <div class="overflow-x-auto">
+
+            <div class="overflow-x-auto max-h-[65vh] overflow-y-auto no-scrollbar">
+
                 <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-primary text-white">
+                    <thead class="bg-primary text-white sticky top-0 z-10">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider w-16">ID</th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Waktu</th>

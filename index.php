@@ -84,6 +84,20 @@ if (isset($_GET['edit'])) {
         }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        /* Sembunyikan scrollbar untuk Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Sembunyikan scrollbar untuk IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+    </style>
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-sans">
@@ -152,9 +166,8 @@ hover:bg-white hover:text-primary hover:border-white transition duration-200">
                         </h2>
                     </div>
 
-                    <form method="POST" class="p-6 space-y-4">
+                    <form method="POST" class="px-6 pt-2 pb-6 space-y-4">
                         <input type="hidden" name="id" value="<?= $data_edit['id']; ?>">
-
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Nama Pemesan</label>
                             <div class="relative">
@@ -168,14 +181,49 @@ hover:bg-white hover:text-primary hover:border-white transition duration-200">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Menu Pesanan</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i class="fa-solid fa-utensils text-gray-400"></i>
-                                </div>
-                                <input type="text" name="menu" value="<?= $data_edit['menu']; ?>" required
-                                    class="pl-10 block w-full rounded-lg border-gray-300 bg-gray-50 border focus:bg-white focus:ring-primary focus:border-primary sm:text-sm p-2.5 transition"
-                                    placeholder="Contoh: Kopi O & Roti Bakar">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Menu Pesanan</label>
+
+                            <!-- BUAT LIST MENU OTOMATIS DARI FOLDER /assets/menu/ -->
+                            <?php
+                            $menuList = [];
+                            $files = scandir("assets/menu/");
+                            foreach ($files as $file) {
+                                if (pathinfo($file, PATHINFO_EXTENSION) !== "png") continue; // hanya ambil gambar PNG
+
+                                // Ambil nama tanpa .png → brown-sugar
+                                $name = pathinfo($file, PATHINFO_FILENAME);
+
+                                // Ubah jadi format rapih → Brown Sugar
+                                $displayName = ucwords(str_replace("-", " ", $name));
+
+                                // Masukkan ke array
+                                $menuList[$displayName] = $file;
+                            }
+                            ?>
+
+                            <!-- MENU LIST BERGAMBAR SCROLL -->
+                            <div class="flex gap-4 overflow-x-auto pb-1 scrollbar-thin scrollbar-thumb-gray-300 no-scrollbar">
+
+                                <?php foreach ($menuList as $namaMenu => $gambarMenu):
+                                    $isActive = ($data_edit['menu'] == $namaMenu) ? "ring-4 ring-primary" : "ring-2 ring-gray-300";
+                                ?>
+
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="menu" value="<?= $namaMenu ?>" class="hidden peer" required>
+
+                                        <div class="w-28 h-32 rounded-xl overflow-hidden border-2 <?= $isActive ?> 
+                        peer-checked:ring-primary shadow hover:shadow-lg transition">
+
+                                            <img src="assets/menu/<?= $gambarMenu ?>"
+                                                class="w-full h-24 object-cover">
+
+                                            <p class="text-center text-sm font-semibold mt-1">
+                                                <?= $namaMenu ?>
+                                            </p>
+                                        </div>
+                                    </label>
+
+                                <?php endforeach; ?>
                             </div>
                         </div>
 
@@ -216,7 +264,7 @@ hover:bg-white hover:text-primary hover:border-white transition duration-200">
                         </span>
                     </div>
 
-                    <div class="overflow-x-auto max-h-[405px] overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                    <div class="overflow-x-auto max-h-[485px] overflow-y-scroll scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 no-scrollbar">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-primary text-white">
                                 <tr>

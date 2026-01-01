@@ -83,3 +83,8 @@ select {
   object-fit: cover; /* rapikan crop agar tidak melebar */
   border-radius: 8px; /* sudut rapi */
 }
+
+.scrollbar-thin::-webkit-scrollbar { height: 6px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: #eee; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: #999; border-radius: 8px; }
+.scrollbar-thin::-webkit-scrollbar-thumb:hover { background: #666; }
